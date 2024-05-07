@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="page.css" rel="stylesheet" type="text/css">
+    <title>TextSaved</title>
+</head>
+<body>
+    <h1>Saved text</h1>
+    <br>
+    <button id="btnBack" class="btnBack" onclick="goback()">To the main page</button>
+    <br>
+    <p id="text" class="text"></p>
+    <script type="text/javascript" src="page.js"></script>
+</body>
+</html>
