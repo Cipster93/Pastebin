@@ -1,0 +1,66 @@
+.textarea {
+    width: 650px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px;
+    outline: none;
+    resize: none;
+}
+
+.btn {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(181, 115, 243);
+    border: 2px solid black;
+    box-shadow: 0px 3px 5px;
+}
+
+.textSavedByUser {
+    width: 650px;
+    height: 500px;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.textSavedByUser div {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 150px; 
+    overflow-y: auto; 
+}
+
+.textSavedByUser div button {
+    background-color: rgb(181, 115, 243);
+    border: 2px solid black;
+    box-shadow: 0px 3px 5px;
+    height: 30px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.text {
+    max-width: 650px; 
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px;
+    padding: 10px;
+    word-wrap: break-word; 
+}
+.btnBack {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(181, 115, 243);
+    border: 2px solid black;
+    box-shadow: 0px 3px 5px;
+}
