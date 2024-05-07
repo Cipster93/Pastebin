@@ -1,0 +1,58 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Npgsql;
+using System;
+using System.IO;
+using System.Text;
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.UseStaticFiles();
+
+var connectionString = "Host=localhost;Username=postgres;Password=Florin1993@;Database=savedtext;";       
+using var connection = new NpgsqlConnection(connectionString);
+connection.Open();
+
+app.MapGet("/", async (HttpContext context) => {
+    var htmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "page.html");             
+    await context.Response.SendFileAsync(htmlFilePath);
+});
+
+app.MapGet("/page2.html", async (HttpContext context) => {
+    var htmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "page2.html");
+    await context.Response.SendFileAsync(htmlFilePath);
+});
+
+app.MapGet("/page.js", async (HttpContext context) => {
+    var jsFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "page.js");
+    await context.Response.SendFileAsync(jsFilePath);
+});
+
+app.MapGet("/page.css", async (HttpContext context) => {
+    var cssFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "page.css");
+    await context.Response.SendFileAsync(cssFilePath);
+});
+
+app.MapPost("/saveText", async (HttpContext context) => {
+    try
+    {
+        var requestBody = await new StreamReader(context.Request.Body).ReadToEndAsync();                 
+        var formData = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(requestBody);
+        var textSaved = context.Request.Form["textSaved"].ToString();
+        var sqlCommand = "INSERT INTO savedtex (usertext) VALUES (@text)";
+        using (var cmd = new NpgsqlCommand(sqlCommand, connection)) {
+            cmd.Parameters.AddWithValue("@text", NpgsqlTypes.NpgsqlDbType.Varchar, textSaved);
+            await cmd.ExecuteNonQueryAsync();
+        }
+        context.Response.StatusCode = 200;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Eroare la conectare: {ex.Message}");
+        context.Response.StatusCode = 500;
+    }
+});
+
+app.Run();
